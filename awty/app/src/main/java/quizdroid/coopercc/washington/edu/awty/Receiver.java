@@ -3,6 +3,7 @@ package quizdroid.coopercc.washington.edu.awty;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,9 @@ public class Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("Receiver", "Message Received");
         String message = intent.getStringExtra("Message");
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        String phone = intent.getStringExtra("Phone");
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phone, null, message, null, null);
+        Toast.makeText(context, phone + ": " + message, Toast.LENGTH_SHORT).show();
     }
 }

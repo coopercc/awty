@@ -77,7 +77,8 @@ public class MainActivity extends Activity {
                             Log.i("MainActivity", String.valueOf(isRunning));
                             Log.i("MainActivity", phone.getText() + ": " + message.getText());
                             Intent intent = new Intent(MainActivity.this, Receiver.class);
-                            intent.putExtra("Message", phone.getText() + ": " + message.getText());
+                            intent.putExtra("Phone", phone.getText());
+                            intent.putExtra("Message", message.getText());
                             pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                             mins = mins * 60 * 1000;
                             Log.i("MainActivity",String.valueOf(SystemClock.elapsedRealtime() + mins));
