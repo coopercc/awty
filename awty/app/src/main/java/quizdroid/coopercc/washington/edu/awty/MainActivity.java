@@ -71,12 +71,16 @@ public class MainActivity extends Activity {
                         if (mins <= 0) {
                             Toast.makeText(MainActivity.this, "Minutes must be positive", Toast.LENGTH_LONG).show();
                         } else {
+
                             isRunning = true;
                             start.setText("Stop");
+                            Log.i("MainActivity", String.valueOf(isRunning));
+                            Log.i("MainActivity", phone.getText() + ": " + message.getText());
                             Intent intent = new Intent(MainActivity.this, Receiver.class);
                             intent.putExtra("Message", phone.getText() + ": " + message.getText());
-                            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+                            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                             mins = mins * 60 * 1000;
+                            Log.i("MainActivity",String.valueOf(SystemClock.elapsedRealtime() + mins));
                             alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                     SystemClock.elapsedRealtime() + mins, mins, pendingIntent);
                         }
@@ -87,6 +91,7 @@ public class MainActivity extends Activity {
 
 
                 } else {
+                    Log.i("MainActivity", "Ended current message");
                     start.setText("Start");
                     isRunning = false;
                     alarmManager.cancel(pendingIntent);
