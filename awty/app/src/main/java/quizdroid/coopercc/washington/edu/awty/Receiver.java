@@ -18,8 +18,10 @@ public class Receiver extends BroadcastReceiver {
         Log.d("Receiver", "Message Received");
         String message = intent.getStringExtra("Message");
         String phone = intent.getStringExtra("Phone");
+        Toast.makeText(context, phone + ": " + message, Toast.LENGTH_SHORT).show();
+
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phone, null, message, null, null);
-        Toast.makeText(context, phone + ": " + message, Toast.LENGTH_SHORT).show();
+
     }
 }
